@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import { useSelector } from "react-redux";
-import { ErrorHandler } from "../redux/errorHandler";
+import { ErrorHandler } from "../pages/redux/errorHandler";
+
 
 export const TransactionsList = () => {
     const [accountIds, setAccountIds] = useState([]);

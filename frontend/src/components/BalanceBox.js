@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { ErrorHandler } from "../redux/errorHandler";
+import { ErrorHandler } from "../pages/redux/errorHandler";
+
 
 export const BalanceBox = () => {
 

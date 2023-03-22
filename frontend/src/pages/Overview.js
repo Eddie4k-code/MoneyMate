@@ -29,7 +29,7 @@ export const Overview = () => {
         <div className="flex flex-col justify-center items-center">
 
             <header class="text-4xl font-bold text-center py-8">
-                Get an overview of your spending!
+                Get an Overview of Your Spending!
             </header>
 
         <div className="container flex-col items-center justify-center pl-10">

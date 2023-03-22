@@ -5,12 +5,10 @@
     "\\backend\\models",
     "\\backend\\routes",
     "\\frontend",
-    "\\frontend\\public",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\frontend\\src\\pages",
-    "\\frontend\\src\\redux"
+    "\\frontend\\src\\pages"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\Navbar.js",
+  "SelectedNode": "\\frontend\\src\\components\\BalanceBox.js",
   "PreviewInSolutionExplorer": false
 }

@@ -54,7 +54,6 @@ export const BalanceBox = () => {
 
                     <ul className="list-reset">
 
-                        <button onClick={() => console.log(accounts)}> log </button>
                         {accounts[0]?.map((account) =>
                             <li className="mb-4">
 

@@ -45,10 +45,10 @@ router.post("/create_link_token", async (req, res, next) => {
         },
 
         client_name: 'Plaid Test App',
-        products: ['auth'],
+        products: ['auth', 'transactions'],
         language: 'en',
         redirect_uri: 'http://localhost:5000/',
-        country_codes: ['US']
+        country_codes: ['US'],
     };
 
 
@@ -217,6 +217,80 @@ router.post("/getTransactions", verifyToken, async (req, res, next) => {
     }
 
 
+});
+
+
+//Get recurring transactions
+router.post("/recurringTransactions", verifyToken, async (req, res, next) => {
+    try {
+        const userId = req.body.userId;
+        const accounts = await Account.find({ userId });
+
+        const transactions = [];
+
+        for (const account of accounts) {
+            const request = {
+                access_token: account.accessToken,
+                account_ids: [account.accountId],
+            };
+            const response = await plaidClient.transactionsRecurringGet(request);
+            transactions.push(response.data.transactions);
+        }
+
+        return res.json(transactions);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Server error" });
+    }
+});
+
+//Make a dummy recurring transaction for an account (for testing purposes)
+router.post("/makeRecurring", async (req, res, next) => {
+    try {
+        let request = {
+            access_token: 'access-sandbox-8b6422cd-3b91-4278-b328-3861aa8f2adc',
+            account_id: 'G1xzagrr9mu5Q9gEaN5nhVyQAmoaxPCGb986R',
+            type: 'debit',
+            network: 'ach',
+            amount: '13.34',
+            ach_class: 'ppd',
+            description: 'payment',
+            idempotency_key: '98765',
+            schedule: {
+                start_date:'2023-03-25',
+                end_date: '2023-10-01',
+                interval_unit: 'week',
+                interval_count: 1,
+                interval_execution_day: 5
+            },
+            user: {
+                legal_name: 'John Smith',
+            },
+            device: {
+                ip_address: '127.0.0.1',
+                user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+            },
+            user_present: true,
+        };
+
+
+
+        const response = await plaidClient.transferRecurringCreate(request);
+        const recurringTransferId = response.data.recurring_transfer.recurring_transfer_id;
+
+
+        return res.json(recurringTransferId);
+
+
+
+
+
+
+
+        
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 

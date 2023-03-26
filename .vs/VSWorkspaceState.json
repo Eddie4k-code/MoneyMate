@@ -7,8 +7,9 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\frontend\\src\\pages"
+    "\\frontend\\src\\pages",
+    "\\frontend\\src\\pages\\redux"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\BalanceBox.js",
+  "SelectedNode": "\\frontend\\src\\pages\\redux\\store.js",
   "PreviewInSolutionExplorer": false
 }

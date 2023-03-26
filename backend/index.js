@@ -19,5 +19,8 @@ app.listen(process.env.PORT || 5000, () => {
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+//   * Route for all Plaid Related Data *
 app.use("/api/plaid", plaidRoute);
+
+// * Route for authentication realted functions (Login / Register) *
 app.use("/api/auth", authRoute);

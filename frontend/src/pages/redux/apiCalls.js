@@ -2,11 +2,12 @@ import { loginFailure, loginStart, loginSuccess } from "./userSlice";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-//dispatches action to trigger state changes to the user slice. (Controls user logging in state)
+
 
 
 //Login
 export const login = async (dispatch, user, navigate) => {
+    //dispatches action to trigger state changes to the user slice. (Controls user logging in state)
    
     dispatch(loginStart());
 
@@ -17,6 +18,7 @@ export const login = async (dispatch, user, navigate) => {
 
         console.log(res.data.accessToken);
         localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("userId", res.data.foundUser._id);
 
         navigate("/overview");
 

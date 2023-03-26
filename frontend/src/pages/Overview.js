@@ -8,6 +8,7 @@ export const Overview = () => {
     //Set authorization header to access token for our middleware!
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 
+
     const navigate = useNavigate();
 
     //Checks if user has an accessToken.

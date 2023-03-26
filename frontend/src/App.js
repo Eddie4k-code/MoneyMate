@@ -12,6 +12,7 @@ import { Login } from './pages/Login';
 import { Overview } from './pages/Overview';
 import { useSelector } from 'react-redux';
 import { LandingPage } from './pages/LandingPage';
+import { RecurringTransactions } from './pages/RecurringTransactions';
 
 
 function App() {
@@ -20,18 +21,8 @@ function App() {
     const [publicToken, setPublicToken] = useState();
     let isUser = useSelector(state => state.user.currentUser);
     const isLoggedIn = useSelector(state => state.user.loggedIn);
-    let user = ''
+    const userId = localStorage.getItem("userId");
    
-
-    useEffect(() => {
-        if (isUser) {
-            user = user.currentUser.foundUser._id;
-        } else {
-            user = ''
-        }
-    }, []);
-
-
 
     const PlaidAuth = ({publicToken}) => {
         return (<span>Account Added</span>);
@@ -41,7 +32,7 @@ function App() {
     const getAccessToken = async (pToken) => {
         let accessToken = await axios.post("http://localhost:5000/api/plaid/exchangePublicToken", {
             public_token: pToken,
-            userId: user,
+            userId: userId,
         });
 
         console.log(accessToken.data);
@@ -112,6 +103,7 @@ function App() {
                     <Route className="auto-mx" path="/login" element={<Login />} />
                     <Route classname="auto-mx" path="/overview" element={<Overview />} />
                     <Route classname="auto-mx" path="/" element={<LandingPage />} />
+                    <Route className="auto-mx" path="/recurring" element={ <RecurringTransactions />} />
                     
                 </Routes>
             </BrowserRouter>

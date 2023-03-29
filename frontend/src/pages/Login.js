@@ -32,7 +32,7 @@ export function Login() {
         <div className="bg-gray-100 h-screen flex flex-col justify-center items-center">
             <form
                 onSubmit={handleSubmit}
-                className="bg-blue-200 p-10 rounded-lg flex flex-col w-96 shadow-md"
+                className="bg-blue-200 p-10 rounded-lg flex-col w-96 shadow-md"
             >
                 <h2 className="text-2xl font-semibold text-blue-500 mb-4">Welcome Back!</h2>
                 <div className="mb-4">
@@ -65,7 +65,7 @@ export function Login() {
                 </div>
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                    className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 w-20 transition duration-300"
                     disabled={isFetching}
                 >
                     Login

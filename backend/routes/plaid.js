@@ -245,7 +245,7 @@ router.post("/recurringTransactions", verifyToken, async (req, res, next) => {
 });
 
 //Make a dummy recurring transaction for an account (for testing purposes)
-router.post("/makeRecurring", async (req, res, next) => {
+router.post("/makeRecurring", verifyToken, async (req, res, next) => {
     try {
         let request = {
             access_token: 'access-sandbox-8b6422cd-3b91-4278-b328-3861aa8f2adc',
@@ -291,6 +291,34 @@ router.post("/makeRecurring", async (req, res, next) => {
     } catch (err) {
         console.log(err);
     }
+});
+
+//Get all accounts associated with user
+router.post("/getUserAccounts", verifyToken, async (req, res, next) => {
+
+
+    try {
+
+        let accounts;
+        const userId = req.body.userId;
+
+        accounts = await Account.find({ userId });
+
+        if (!accounts) {
+            return res.json({ msg: "No Accounts Found" });
+        }
+
+
+        return res.json(accounts);
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+
+
 });
 
 

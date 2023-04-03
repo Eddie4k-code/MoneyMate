@@ -12,9 +12,9 @@ export const Navbar = ({loggedIn}) => {
                             <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">Home</a>
                             {!loggedIn && <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">Login</a>}
                             {!loggedIn && <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">Register</a>}
-                            {loggedIn && <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">My Accounts</a>}
+                            {loggedIn && <a href="/accounts" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">My Accounts</a>}
                             {loggedIn && <a href="/overview" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">My Overview</a>}
-                            {loggedIn && <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">Recurring Transactions</a>}
+                            {loggedIn && <a href="/recurring" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-300">Recurring Transactions</a>}
 
                         </div>
                     </div>

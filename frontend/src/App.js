@@ -13,6 +13,7 @@ import { Overview } from './pages/Overview';
 import { useSelector } from 'react-redux';
 import { LandingPage } from './pages/LandingPage';
 import { RecurringTransactions } from './pages/RecurringTransactions';
+import { MyAccounts } from './pages/MyAccounts';
 
 
 function App() {
@@ -86,7 +87,7 @@ function App() {
     return (
       
         <div>
-            <Navbar loggedIn={isLoggedIn}/>
+            <Navbar loggedIn={userId}/>
 
             <button onClick={() => open()} disabled={!ready}>
             
@@ -98,12 +99,12 @@ function App() {
             <BrowserRouter>
              
                 <Routes>
-             
                     <Route className="auto-mx" path="/register" element={<Register />} />
                     <Route className="auto-mx" path="/login" element={<Login />} />
                     <Route classname="auto-mx" path="/overview" element={<Overview />} />
                     <Route classname="auto-mx" path="/" element={<LandingPage />} />
-                    <Route className="auto-mx" path="/recurring" element={ <RecurringTransactions />} />
+                    <Route className="auto-mx" path="/recurring" element={<RecurringTransactions />} />
+                    <Route className="auto-mx" path="/accounts" element={<MyAccounts />} />
                     
                 </Routes>
             </BrowserRouter>

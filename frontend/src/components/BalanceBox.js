@@ -10,7 +10,7 @@ export const BalanceBox = () => {
 
 
     //Get user id 
-    const user = useSelector(state => state.user.currentUser.foundUser._id) || null;
+    const user = localStorage.getItem("userId") //useSelector(state => state.user.currentUser.foundUser._id) || null;
     const [accounts, setAccounts] = useState([]);
     const loggedIn = useSelector(state => state.loggedIn);
     const navigate = useNavigate();

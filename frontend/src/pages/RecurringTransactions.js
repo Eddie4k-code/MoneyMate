@@ -34,10 +34,11 @@ export const RecurringTransactions = () => {
 
     //Content will change depending on "recurringTransactionsStatus"
     if (status === 'loading') {
-        content = <h1>Loading Recurring Transactions...</h1>;
+        content = <div className = "flex items-center justify-center" ><h1>Loading Recurring Transactions...</h1></div>;
     } else if (status === 'succeeded') {
         if (transactions[0] == null) {
-            content = <h1>No Recurring Transactions to show!</h1>
+
+            content = <div className="flex items-center justify-center"><h1>No Recurring Transactions to show!</h1></div>
         } else {
 
 
@@ -63,6 +64,8 @@ export const RecurringTransactions = () => {
 
 
 
+    } else if (status == 'failed') {
+        content = <div className="flex items-center justify-center"><h1>An error has occured!</h1></div>
     }
 
 

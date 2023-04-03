@@ -9,7 +9,7 @@ export const TransactionsList = () => {
     const [transactions, setTransactions] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const user = useSelector(state => state.user.currentUser.foundUser._id) || null;
+    const user = localStorage.getItem("userId") //useSelector(state => state.user.currentUser.foundUser._id) || null;
     const [accountMap, setAccountMap] = useState({});
     const [loading, setLoading] = useState(true);
     

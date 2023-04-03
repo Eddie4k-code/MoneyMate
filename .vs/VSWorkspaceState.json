@@ -10,6 +10,6 @@
     "\\frontend\\src\\pages",
     "\\frontend\\src\\pages\\redux"
   ],
-  "SelectedNode": "\\frontend\\src\\pages\\Login.js",
+  "SelectedNode": "\\frontend\\src\\components\\Account.js",
   "PreviewInSolutionExplorer": false
 }

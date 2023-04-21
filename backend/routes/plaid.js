@@ -36,7 +36,7 @@ const plaidClient = new PlaidApi(configuration);
  * when the user clicks this receives the link token it will open the Plaid Link interface where user can sign in with their bank account.
  * 
  * */
-router.post("/create_link_token", async (req, res, next) => {
+router.post("/create_link_token", verifyToken, async (req, res, next) => {
 
     const plaidRequest = {
 
@@ -64,9 +64,9 @@ router.post("/create_link_token", async (req, res, next) => {
 
 
 //Exchange Token for permanent access token
-router.post("/exchangePublicToken", async (req, res, next) => {
+router.post("/exchangePublicToken", verifyToken, async (req, res, next) => {
     const publicToken = req.body.public_token;
-    const userId = req.body.userId;
+    const userId = req.user._id;
 
     try {
         const response = await plaidClient.itemPublicTokenExchange({
@@ -110,7 +110,7 @@ router.post("/exchangePublicToken", async (req, res, next) => {
 
 
 //Retrieve Institution info such as name
-router.post("/getInstitutionInfo", async (req, res, next) => {
+router.post("/getInstitutionInfo", verifyToken, async (req, res, next) => {
     const accessToken = req.body.accessToken;
 
     try {
@@ -143,7 +143,7 @@ router.post("/getBalance", verifyToken, async (req, res, next) => {
 
     try {
 
-        userId = req.body.userId;
+        userId = req.user._id;
         let allAccounts;
 
         const accounts = await Account.find({ userId });
@@ -183,7 +183,7 @@ router.post("/getTransactions", verifyToken, async (req, res, next) => {
         let startDate;
         let endDate;
 
-        userId = req.body.userId;
+        userId = req.user._id;
         startDate = req.body.startDate;
         endDate = req.body.endDate;
 
@@ -223,7 +223,7 @@ router.post("/getTransactions", verifyToken, async (req, res, next) => {
 //Get recurring transactions
 router.post("/recurringTransactions", verifyToken, async (req, res, next) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.user._id;
         const accounts = await Account.find({ userId });
 
         const transactions = [];
@@ -300,7 +300,7 @@ router.post("/getUserAccounts", verifyToken, async (req, res, next) => {
     try {
 
         let accounts;
-        const userId = req.body.userId;
+        const userId = req.user._id;
 
         accounts = await Account.find({ userId });
 

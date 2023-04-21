@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import { useSelector } from "react-redux";
 import { ErrorHandler } from "../pages/redux/errorHandler";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 export const TransactionsList = () => {
@@ -9,7 +10,7 @@ export const TransactionsList = () => {
     const [transactions, setTransactions] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const user = localStorage.getItem("userId") //useSelector(state => state.user.currentUser.foundUser._id) || null;
+    const user = useAuthContext();
     const [accountMap, setAccountMap] = useState({});
     const [loading, setLoading] = useState(true);
     
@@ -30,10 +31,15 @@ export const TransactionsList = () => {
     const getRecentTransactions = async () => {
 
         const res = await axios.post("http://localhost:5000/api/plaid/getTransactions", {
-            userId: user,
             startDate: startDate,
             endDate: endDate
-        }).catch(err => console.log(err));
+        }, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+
+
+        });
 
 
         return res.data;
@@ -44,7 +50,12 @@ export const TransactionsList = () => {
     const getAccountNames = useCallback(async () => {
         try {
             const res = await axios.post("http://localhost:5000/api/plaid/getBalance", {
-                userId: user,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+
+
             });
             const data = res.data[0];
 

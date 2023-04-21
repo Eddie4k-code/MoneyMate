@@ -3,21 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { BalanceBox } from "../components/BalanceBox"
 import { TransactionsList } from "../components/TransactionsList"
 import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Overview = () => {
-    //Set authorization header to access token for our middleware!
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
+
 
 
     const navigate = useNavigate();
+    const user = useAuthContext();
 
     //Checks if user has an accessToken.
     useEffect(() => {
 
-        if (!localStorage.getItem("accessToken")) {
+        if (!user) {
             navigate("/login");
         }
-
 
     }, [])
 

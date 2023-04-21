@@ -1,31 +1,37 @@
 //Middleware
 
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 
-const verifyToken = (req, res, next) => {
-    //Makes sure user is authenticated
-    const authHeader = req.headers.authorization;
-    console.log(authHeader);
+const verifyToken = async (req, res, next) => {
+    
 
+        const authorization = req.headers.authorization;
 
-    if (authHeader) {
-        jwt.verify(authHeader.split(" ")[1], process.env.JWT_SEC, (err, user) => {
-            if (err) {
-                return res.status(403).json({ msg: "Token is not valid" });
-            }
+        if (!authorization) {
+            return res.status(401).json({ error: "Authorization Token Required" });
+    }
 
-            req.user = user;
-            next(); // Leaves function and continues to route!
+    console.log(authorization);
 
-        });
-    } else {
-        //res.redirect("/login");
-        return res.status(401).json({ msg: "Not Authenticated" });
+        const token = authorization.split(' ')[1];
+
+    try {
+
+        //get user id from token
+        const { id, isAdmin } = jwt.verify(token, 'secret123');
+        req.user = await User.findOne({ _id:id }).select('_id');
+
+        console.log(req.user);
+        next();
+
+    } catch (err) {
+        console.log(err);
+        res.status(401).json({ error: "Request is not Authorized" });
     }
 
 }
-
 
 
 module.exports = { verifyToken};

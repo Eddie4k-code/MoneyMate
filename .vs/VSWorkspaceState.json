@@ -5,11 +5,8 @@
     "\\backend\\models",
     "\\backend\\routes",
     "\\frontend",
-    "\\frontend\\src",
-    "\\frontend\\src\\components",
-    "\\frontend\\src\\pages",
-    "\\frontend\\src\\pages\\redux"
+    "\\frontend\\src"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\Account.js",
+  "SelectedNode": "\\backend\\models\\Account.js",
   "PreviewInSolutionExplorer": false
 }

@@ -50,44 +50,25 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
 
     try {
-        let foundUser;
+
         const { email, password } = req.body;
 
-        foundUser = await User.findOne({ email });
+    
 
-        if (!foundUser) {
-            return res.status(401).json({ msg: "Account Does not Exist" });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-
-        if (!isPasswordValid) {
-
-            return res.status(401).json({ msg: "Email or password is incorrect" });
-
-        }
+        let existingUser = await User.login(email, password);
 
 
+        
 
-        delete foundUser.password;
+        let id = await existingUser._id;
+        let isAdmin = await existingUser.isAdmin;
+        //create token
+        const token = jwt.sign({ id, isAdmin}, 'secret123', { expiresIn: '3d' });
 
-        const accessToken = jwt.sign({
-            id: foundUser._id,
-            isAdmin: foundUser.isAdmin
-        }, process.env.JWT_SEC,
-            { expiresIn: "3d" }
-        );
-
-
-        return res.status(200).json({ foundUser, accessToken });
-
-
-
-
-
+        res.status(200).json({ email, token });
 
     } catch (err) {
-        console.log(err);
+        res.status(400).json({ error: err.message });
     }
 
 

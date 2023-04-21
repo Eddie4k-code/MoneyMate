@@ -2,21 +2,21 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "./redux/apiCalls";
+import { useLogin } from "../hooks/useLogin";
+
 
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { login, error, isLoading } = useLogin();
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const { isFetching, error } = useSelector(state => state.user);
     const navigate = useNavigate();
     
 
     //Send request to api to login.
     const sendRequest = async () => {
-        login(dispatch, { email, password }, navigate);
+        await login(email, password, navigate);
     };
 
     
@@ -25,7 +25,6 @@ export function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         sendRequest();
-        console.log(user);
     };
 
     return (
@@ -66,11 +65,11 @@ export function Login() {
                 <button
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 w-20 transition duration-300"
-                    disabled={isFetching}
+                    disabled={isLoading}
                 >
                     Login
                 </button>
-                {error && <h1>Something went wrong...</h1>}
+                {error && <h1>{error}</h1>}
                 <p className="text-sm mt-4 text-gray-700">
                     Don't have an account yet?{" "}
                     <a href="#" className="underline text-blue-500">

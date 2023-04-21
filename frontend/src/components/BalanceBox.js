@@ -10,9 +10,8 @@ export const BalanceBox = () => {
 
 
     //Get user id 
-    const user = localStorage.getItem("userId") //useSelector(state => state.user.currentUser.foundUser._id) || null;
+     //useSelector(state => state.user.currentUser.foundUser._id) || null;
     const [accounts, setAccounts] = useState([]);
-    const loggedIn = useSelector(state => state.loggedIn);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -23,9 +22,9 @@ export const BalanceBox = () => {
     //Update account balances on page
     useEffect(() => {
         if (status == 'idle') {
-            dispatch(getBalance(user)).then((data) => setAccounts(data.payload));
+            dispatch(getBalance()).then((data) => setAccounts(data.payload));
         }
-    }, [user, dispatch, accounts, status]);
+    }, [dispatch, accounts, status]);
     
 
     //Get total amount from All accounts

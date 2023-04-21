@@ -8,7 +8,6 @@ export const RecurringTransactions = () => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     const [transactions, setTransactions] = useState([]);
-    const user = localStorage.getItem("userId");
     const dispatch = useDispatch();
 
     //Retrieves status of api request getting recurring transactions from plaidSlice.
@@ -25,9 +24,9 @@ export const RecurringTransactions = () => {
 
     useEffect(() => {
   if (status === 'idle') {
-    dispatch(getRecurringTransactions(user)).then((data) => setTransactions(data.payload));
+    dispatch(getRecurringTransactions()).then((data) => setTransactions(data.payload));
   }
-}, [dispatch, user]);
+}, [dispatch]);
 
 
     let content;

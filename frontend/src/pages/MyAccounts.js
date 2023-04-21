@@ -5,21 +5,19 @@ import axios from 'axios';
 import { Account } from "../components/Account";
 
 export const MyAccounts = () => {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     const [accounts, setAccounts] = useState([]);
     const status = useSelector(getAccountsStatus);
-    const user = localStorage.getItem("userId");
     const dispatch = useDispatch();
 
 
     useEffect(() => {
         if (status == 'idle') {
-            dispatch(getAccounts(user)).then((data) => setAccounts(data.payload));
+            dispatch(getAccounts()).then((data) => setAccounts(data.payload));
         }
 
 
-    }, [user, dispatch])
+    }, [dispatch])
 
 
     let content;

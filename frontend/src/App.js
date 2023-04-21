@@ -14,16 +14,17 @@ import { useSelector } from 'react-redux';
 import { LandingPage } from './pages/LandingPage';
 import { RecurringTransactions } from './pages/RecurringTransactions';
 import { MyAccounts } from './pages/MyAccounts';
+import { useAuthContext } from './hooks/useAuthContext';
 
 
 function App() {
 
     const [linkToken, setLinkToken] = useState();
     const [publicToken, setPublicToken] = useState();
-    let isUser = useSelector(state => state.user.currentUser);
-    const isLoggedIn = useSelector(state => state.user.loggedIn);
-    const userId = localStorage.getItem("userId");
-   
+    const { user } = useAuthContext();
+
+
+    
 
     const PlaidAuth = ({publicToken}) => {
         return (<span>Account Added</span>);
@@ -33,8 +34,13 @@ function App() {
     const getAccessToken = async (pToken) => {
         let accessToken = await axios.post("http://localhost:5000/api/plaid/exchangePublicToken", {
             public_token: pToken,
-            userId: userId,
-        });
+        }, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        );
 
         console.log(accessToken.data);
 
@@ -47,8 +53,11 @@ function App() {
     //Create Token
     useEffect(() => {
 
+
         async function fetch() {
             const res = await axios.post('http://localhost:5000/api/plaid/create_link_token');
+
+
             setLinkToken(res.data.link_token);
 
         }
@@ -87,7 +96,7 @@ function App() {
     return (
       
         <div>
-            <Navbar loggedIn={userId}/>
+            <Navbar loggedIn={user}/>
 
             <button onClick={() => open()} disabled={!ready}>
             

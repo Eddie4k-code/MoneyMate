@@ -36,7 +36,7 @@ const plaidClient = new PlaidApi(configuration);
  * when the user clicks this receives the link token it will open the Plaid Link interface where user can sign in with their bank account.
  * 
  * */
-router.post("/create_link_token", verifyToken, async (req, res, next) => {
+router.post("/create_link_token", async (req, res, next) => {
 
     const plaidRequest = {
 
@@ -110,7 +110,7 @@ router.post("/exchangePublicToken", verifyToken, async (req, res, next) => {
 
 
 //Retrieve Institution info such as name
-router.post("/getInstitutionInfo", verifyToken, async (req, res, next) => {
+router.post("/getInstitutionInfo", async (req, res, next) => {
     const accessToken = req.body.accessToken;
 
     try {

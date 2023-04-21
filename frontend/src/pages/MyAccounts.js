@@ -3,17 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAccounts, getAccountsStatus } from "./redux/plaidSlice";
 import axios from 'axios';
 import { Account } from "../components/Account";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const MyAccounts = () => {
 
     const [accounts, setAccounts] = useState([]);
     const status = useSelector(getAccountsStatus);
     const dispatch = useDispatch();
+    const { user } = useAuthContext();
 
 
     useEffect(() => {
-        if (status == 'idle') {
-            dispatch(getAccounts()).then((data) => setAccounts(data.payload));
+        if (status == 'idle' && user) {
+            dispatch(getAccounts(user)).then((data) => setAccounts(data.payload));
         }
 
 
@@ -68,7 +70,7 @@ export const MyAccounts = () => {
             </div>
 
         </div>
-    } else {
+    } else if (status == 'failed'){
         content = <div className="flex flex-col justify-center items-center">
 
             <header class="text-4xl font-bold text-center py-8">

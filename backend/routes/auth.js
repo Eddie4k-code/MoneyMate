@@ -60,10 +60,10 @@ router.post("/login", async (req, res, next) => {
 
         
 
-        let id = await existingUser._id;
-        let isAdmin = await existingUser.isAdmin;
+        let id = existingUser._id;
+
         //create token
-        const token = jwt.sign({ id, isAdmin}, 'secret123', { expiresIn: '3d' });
+        const token = jwt.sign({ id }, 'secret123', { expiresIn: '3d' });
 
         res.status(200).json({ email, token });
 

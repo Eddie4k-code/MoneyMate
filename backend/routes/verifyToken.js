@@ -15,12 +15,13 @@ const verifyToken = async (req, res, next) => {
 
     console.log(authorization);
 
-        const token = authorization.split(' ')[1];
+    const token = authorization.split(' ')[1];
+    console.log(token);
 
     try {
 
         //get user id from token
-        const { id, isAdmin } = jwt.verify(token, 'secret123');
+        const { id } = jwt.verify(token, 'secret123');
         req.user = await User.findOne({ _id:id }).select('_id');
 
         console.log(req.user);

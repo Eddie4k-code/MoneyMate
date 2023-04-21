@@ -2,11 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\backend\\models",
     "\\backend\\routes",
     "\\frontend",
-    "\\frontend\\src"
+    "\\frontend\\src",
+    "\\frontend\\src\\components",
+    "\\frontend\\src\\context",
+    "\\frontend\\src\\hooks",
+    "\\frontend\\src\\pages",
+    "\\frontend\\src\\pages\\redux"
   ],
-  "SelectedNode": "\\backend\\models\\Account.js",
+  "SelectedNode": "\\frontend\\src\\pages\\RecurringTransactions.js",
   "PreviewInSolutionExplorer": false
 }

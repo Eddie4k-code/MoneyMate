@@ -3,12 +3,14 @@ import { SingleRecurringTransaction } from "../components/SingleRecurringTransac
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getRecurringTransactions, getRecurringTransactionsStatus } from "./redux/plaidSlice";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const RecurringTransactions = () => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     const [transactions, setTransactions] = useState([]);
     const dispatch = useDispatch();
+    const user = useAuthContext();
 
     //Retrieves status of api request getting recurring transactions from plaidSlice.
 
@@ -24,7 +26,7 @@ export const RecurringTransactions = () => {
 
     useEffect(() => {
   if (status === 'idle') {
-    dispatch(getRecurringTransactions()).then((data) => setTransactions(data.payload));
+    dispatch(getRecurringTransactions(user)).then((data) => setTransactions(data.payload));
   }
 }, [dispatch]);
 

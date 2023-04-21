@@ -3,10 +3,9 @@ import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 
-export const getBalance = createAsyncThunk("plaid/getBalance", async () => {
+export const getBalance = createAsyncThunk("plaid/getBalance", async (user) => {
     //Make request to backend to retrieve account balances.
-    const user = useAuthContext();
-
+    
     try {
 
         const response = await axios.post('http://localhost:5000/api/plaid/getBalance', {
@@ -27,10 +26,10 @@ export const getBalance = createAsyncThunk("plaid/getBalance", async () => {
 });
 
 
-export const getAccounts = createAsyncThunk("plaid/getAccounts", async () => {
+export const getAccounts = createAsyncThunk("plaid/getAccounts", async (user) => {
     //Make request to backend to retrieve all accounts associated with userid.
 
-    const user = useAuthContext();
+   
 
     try {
 
@@ -42,7 +41,7 @@ export const getAccounts = createAsyncThunk("plaid/getAccounts", async () => {
             }
         }
 
-        );
+        ).catch(err => console.log(err));
 
         const data = await res.data;
 
@@ -58,7 +57,7 @@ export const getAccounts = createAsyncThunk("plaid/getAccounts", async () => {
 });
 
 
-export const getRecurringTransactions = createAsyncThunk("plaid/getRecurringTransactions", async () => {
+export const getRecurringTransactions = createAsyncThunk("plaid/getRecurringTransactions", async (user) => {
     //Make a request to backend to retireve all reccuring transactions from accounts associated with the userid.
 
     try {
@@ -68,7 +67,16 @@ export const getRecurringTransactions = createAsyncThunk("plaid/getRecurringTran
 
             
 
-        }).catch(err => console.log(err));
+        }, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+
+
+
+        );
 
 
         let data = res.data;

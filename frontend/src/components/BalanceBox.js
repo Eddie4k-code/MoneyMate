@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { ErrorHandler } from "../pages/redux/errorHandler";
 import { getBalance, getBalanceStatus } from "../pages/redux/plaidSlice";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 export const BalanceBox = () => {
@@ -14,6 +15,7 @@ export const BalanceBox = () => {
     const [accounts, setAccounts] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useAuthContext();
 
     //Retireves status of api request getting balance data from our plaidSlice!
     const status = useSelector(getBalanceStatus);
@@ -21,8 +23,11 @@ export const BalanceBox = () => {
 
     //Update account balances on page
     useEffect(() => {
-        if (status == 'idle') {
-            dispatch(getBalance()).then((data) => setAccounts(data.payload));
+
+
+
+        if (status == 'idle' && user) {
+            dispatch(getBalance(user)).then((data) => setAccounts(data.payload));
         }
     }, [dispatch, accounts, status]);
     

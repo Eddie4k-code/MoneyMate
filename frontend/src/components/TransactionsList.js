@@ -10,7 +10,7 @@ export const TransactionsList = () => {
     const [transactions, setTransactions] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const user = useAuthContext();
+    const { user } = useAuthContext();
     const [accountMap, setAccountMap] = useState({});
     const [loading, setLoading] = useState(true);
     

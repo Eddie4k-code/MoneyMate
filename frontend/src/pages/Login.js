@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 
@@ -12,12 +13,18 @@ export function Login() {
     const { login, error, isLoading } = useLogin();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const user = useAuthContext();
 
     //Send request to api to login.
     const sendRequest = async () => {
         await login(email, password, navigate);
     };
+
+    useEffect(() => {
+
+        console.log(user);
+
+    }, [])
 
     
 
